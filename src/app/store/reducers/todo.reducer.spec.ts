@@ -1,10 +1,10 @@
-import { initialState, todoReducer, TodoStatus } from "./todo.reducer";
+import { initialState, todoFeature, TodoStatus } from "./todo.reducer";
 import { TodoDataActions } from "../actions/todo.actions";
 
 describe('TodoReducer', () => {
   it('should return the initial state on unknown action', () => {
     const action = {} as any;
-    const result = todoReducer(initialState, action);
+    const result = todoFeature.reducer(initialState, action);
     expect(result).toBe(initialState);
   });
 
@@ -19,6 +19,6 @@ describe('TodoReducer', () => {
     };
 
     const action = TodoDataActions.load();
-    expect(todoReducer(state, action)).toEqual(expected);
+    expect(todoFeature.reducer(state, action)).toEqual(expected);
   });
 });

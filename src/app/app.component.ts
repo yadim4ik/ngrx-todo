@@ -3,8 +3,7 @@ import { RouterOutlet } from "@angular/router";
 import { MatToolbar } from "@angular/material/toolbar";
 import { MatButton } from "@angular/material/button";
 import { Store } from "@ngrx/store";
-import { AppState } from "./store/store";
-import { TodoActions, TodoDataActions } from "./store/actions/todo.actions";
+import { TodoActions } from "./store/actions/todo.actions";
 
 @Component({
   selector: 'app-root',
@@ -18,7 +17,7 @@ import { TodoActions, TodoDataActions } from "./store/actions/todo.actions";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  private store = inject(Store<AppState>);
+  private store = inject(Store);
 
   createTodo(): void {
     this.store.dispatch(TodoActions.openCreateDialog());

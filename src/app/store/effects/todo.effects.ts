@@ -7,8 +7,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { CreateTodoComponent } from "../../components/create-todo/create-todo.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Store } from "@ngrx/store";
-import { getMaxIdSelector, todoListSelector } from "../selectors/todo.selectors";
 import { Todo } from "../models/todo.model";
+import { todoFeature } from "../reducers/todo.reducer";
 
 export const todosLoadEffect = createEffect((
  actions$ = inject(Actions),
@@ -17,7 +17,7 @@ export const todosLoadEffect = createEffect((
   return actions$.pipe(
     ofType(TodoDataActions.load),
     switchMap(() => service.getTodos().pipe(
-      // Uncomment to test error handling
+      /** Uncomment to test error handling */
       // switchMap(() => throwError(() => new Error('Test error'))),
       map((todos) => TodoDataActions.loadSuccess({ todos })),
       catchError((error) => of(TodoDataActions.loadFailure({ error: error.message })))
@@ -41,7 +41,7 @@ export const createTodoEffect = createEffect((
 ) => {
   return actions$.pipe(
     ofType(TodoActions.create),
-    withLatestFrom(store.select(getMaxIdSelector)),
+    withLatestFrom(store.select(todoFeature.selectMaxId)),
     map(([{title}, id]) => {
       const todo: Todo = {
         id,
