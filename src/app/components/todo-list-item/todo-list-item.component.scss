@@ -1,0 +1,12 @@
+.mat-mdc-card {
+  height: 100%;
+
+  &-header {
+    justify-content: end;
+  }
+
+  &-actions {
+    justify-content: end;
+    gap: .5em;
+  }
+}

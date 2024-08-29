@@ -1,0 +1,25 @@
+<h1>Todo List</h1>
+
+@switch (status$ | async) {
+  @case (TodoStatus.Loading) {
+    <p>Loading...</p>
+  }
+  @case (TodoStatus.Error) {
+    <p>{{ error$ | async }}</p>
+  }
+  @case (TodoStatus.Loaded) {
+    <mat-checkbox (change)="updateFilter($event.checked)">Hide completed</mat-checkbox>
+
+    <div class="todos-list">
+      @for (todo of todos$ | async; track todo.id) {
+        <app-todo-list-item
+          [item]="todo"
+          (deleted)="deleteItem($event)"
+          (updated)="updateItem($event)"
+        ></app-todo-list-item>
+      } @empty {
+        <p>List empty</p>
+      }
+    </div>
+  }
+}

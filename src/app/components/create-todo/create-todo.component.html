@@ -1,0 +1,13 @@
+<h2 matDialogTitle>Create todo</h2>
+
+<div [formGroup]="form" matDialogContent>
+  <mat-form-field appearance="fill">
+    <mat-label>Todo title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+</div>
+
+<div matDialogActions>
+  <button type="button" mat-button color="warn" matDialogClose>Cancel</button>
+  <button type="button" mat-button color="primary" [disabled]="form.invalid" (click)="create()">Create</button>
+</div>
