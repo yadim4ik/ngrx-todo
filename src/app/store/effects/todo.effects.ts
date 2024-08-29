@@ -7,7 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { CreateTodoComponent } from "../../components/create-todo/create-todo.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Store } from "@ngrx/store";
-import { todoListSelector } from "../selectors/todo.selectors";
+import { getMaxIdSelector, todoListSelector } from "../selectors/todo.selectors";
 import { Todo } from "../models/todo.model";
 
 export const todosLoadEffect = createEffect((
@@ -41,12 +41,10 @@ export const createTodoEffect = createEffect((
 ) => {
   return actions$.pipe(
     ofType(TodoActions.create),
-    withLatestFrom(store.select(todoListSelector)),
-    map(([{title}, todos]) => {
-      const maxId = todos.reduce((maxId, todo) => Math.max(maxId, todo.id), 0);
-
+    withLatestFrom(store.select(getMaxIdSelector)),
+    map(([{title}, id]) => {
       const todo: Todo = {
-        id: maxId + 1,
+        id,
         userId: 1,
         title,
         completed: false,

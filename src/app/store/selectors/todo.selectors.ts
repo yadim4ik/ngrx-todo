@@ -17,3 +17,8 @@ export const todoErrorSelector = createSelector(
   selectFeature,
   (state) => state.error
 );
+
+export const getMaxIdSelector = createSelector(
+  selectFeature,
+  (state) => state.todos.reduce((maxId, todo) => Math.max(maxId, todo.id) + 1, 1)
+);
